@@ -1,18 +1,100 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const titlesRef = useRef([]);
+    const underlineRef = useRef([]);
+
+    const menuItems = ['Home', 'About', 'Work', 'Contact'];
+
+    useEffect(() => {
+        const tl = gsap.timeline();
+        if (isOpen) {
+            tl.to(".navpage", {
+                height: "100vh",
+                duration: 0.6,
+                ease: "power1.inOut",
+            });
+            tl.from(".navpageh1", {
+                y: 100,
+                duration: 0.5,
+                delay: 0.2,
+                ease: "power1.inOut",
+                stagger: 0.2,
+            }, "-=0.5")
+            tl.from(".navbaricons", {
+                scale: 0,
+                duration: 0.8,
+                stagger: 0.1,
+            }, "-=1")
+            tl.from("#navbarh3", {
+                y: 50,
+                duration: 0.7,
+                ease: "power1.inOut",
+                stagger: 0.2
+            }, "-=1")
+            tl.from("#navbarh2", {
+                y: 50,
+                duration: 0.7,
+                ease: "power1.inOut",
+                stagger: 0.2
+            }, "-=1.01")
+        } else {
+            tl.to(".navpage", {
+                height: "0vh",
+                duration: 0.6,
+                ease: "power1.inOut",
+            });
+        }
+    }, [isOpen]);
+    const handleMouseEnter = (index) => {
+        gsap.set(underlineRef.current[index], { transformOrigin: 'left' });
+        gsap.to(underlineRef.current[index], {
+            scaleX: 1,
+            duration: 0.4,
+            ease: 'power2.out',
+        });
+
+        titlesRef.current.forEach((el, i) => {
+            if (i !== index) {
+                gsap.to(el, {
+                    color: 'gray',
+                    opacity: 0.6,
+                    duration: 0.3,
+                });
+            }
+        });
+    };
+
+    const handleMouseLeave = (index) => {
+        gsap.set(underlineRef.current[index], { transformOrigin: 'right' });
+        gsap.to(underlineRef.current[index], {
+            scaleX: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+        });
+
+        titlesRef.current.forEach((el) => {
+            gsap.to(el, {
+                color: 'black',
+                opacity: 1,
+                duration: 0.3,
+            });
+        });
+    };
+
 
     function toggleMenu() {
         setIsOpen(prev => !prev);
-        console.log(isOpen);
     }
 
+
     return (
-        <div className='h-screen w-full overflow-hidden'>
+        <div className='w-full overflow-hidden'>
             <nav className="w-full h-[10vh] flex justify-between fixed z-10 items-center transparent px-5">
                 <div className="flex items-center">
-                    <h1 className="select-none font-bold text-xl">Logo</h1>
+                    <h1 className="select-none font-bold text-xl">D</h1>
                 </div>
 
                 <div
@@ -28,47 +110,86 @@ const Nav = () => {
                     </span>
                 </div>
             </nav>
-            {isOpen && (
-                <div className='h-screen w-full flex md:flex-row  flex-col-reverse '>
-                    <div className="h-full w-full flex items-center justify-center md:w-[50%] bg-amber-700">
-                        <div className='bg-amber-600 h-[60%] w-[90%] flex justify-center flex-col gap-3'>
-                            <div className='bg-amber-400 h-fit w-fit font-[font4]'>
-                                <h1 className="text-7xl font-semibold ">Home</h1>
-                            </div>
-                            <div className='bg-amber-400 h-fit w-fit font-[font4] '>
-                                <h1 className="text-7xl font-semibold  ">About</h1>
-                            </div>
-                            <div className='bg-amber-400 h-fit w-fit font-[font4]'>
-                                <h1 className="text-7xl font-semibold">Work</h1>
-                            </div>
-                            <div className='bg-amber-400 h-fit w-fit font-[font4]'>
-                                <h1 className="text-7xl font-semibold">Contact</h1>
-                            </div>
+            <div className='navpage h-0 w-full flex md:flex-row overflow-hidden flex-col-reverse '>
+                <div className="h-[90%] w-[50%] flex flex-col md:items-end justify-center gap-3">
+                    {menuItems.map((text, index) => (
+                        <div
+                            key={index}
+                            className="relative overflow-hidden h-fit w-fit font-[font4]"
+                            onMouseEnter={() => handleMouseEnter(index)}
+                            onMouseLeave={() => handleMouseLeave(index)}
+                        >
+                            <h1
+                                ref={(el) => (titlesRef.current[index] = el)}
+                                className="text-7xl navpageh1 translate-y-0 md:text-[6rem] font-semibold text-black cursor-pointer "
+                            >
+                                {text}
+                            </h1>
+                            <div
+                                ref={(el) => (underlineRef.current[index] = el)}
+                                className="absolute left-0 bottom-0 h-[4px] bg-black w-full scale-x-0"
+                                style={{ transformOrigin: "left", transform: "scaleX(0)" }}
+                            ></div>
                         </div>
-                    </div>
-                    <div className='h-full bg-blue-500 w-full md:w-[50%] flex items-center justify-center'>
-                        <div className='flex bg-blue-300 h-[60%] w-[90%] flex-col justify-end pb-[2.2vw] pl-[1vw]'>
-                            <div>
-                                <i className="ri-instagram-line"></i>
-                                <i className="ri-github-fill"></i>
-                                <i className="ri-twitter-x-fill"></i>
-                                <i className="ri-linkedin-box-fill"></i>
-                            </div>
-                            <div>
-                                <div>
-                                    <h2>(inquires)</h2>
-                                    <h3>john@jt-studio.com</h3>
-                                </div>
-                                <div>
-                                    <h2>(Phone)</h2>
-                                    <h3>+491234 56789</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    ))}
                 </div>
-            )}
+                <div className='h-full w-full md:w-[50%] flex items-center justify-center'>
+                    <div className='flex h-[90%] w-[90%] flex-col justify-center pl-[2vw] gap-8'>
+                        <div className='w-full bg flex gap-2'>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full border border-black flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-instagram-line relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            </div>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-black flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-github-fill relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            </div>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-black flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-twitter-x-fill relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            </div>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-black flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-linkedin-box-fill relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            </div>
+                        </div>
+                        <div className='flex flex-col gap-3'>
+                            <div>
+                                <div className="h-fit w-fit overflow-hidden">
+                                    <h2 id="navbarh2" className='text-[#9d9d9d] translate-y-0'>(inquires)</h2>
+                                </div>
+                                <div className="h-fit w-fit overflow-hidden">
+                                    <h3 id="navbarh3" className='relative group translate-y-0  cursor-pointer w-fit'>
+                                        john@jt-studio.com
+                                        <span
+                                            className="absolute bottom-0 left-0 w-full h-0.5 bg-black 
+                                                    transform scale-x-100 group-hover:scale-x-0 
+                                                    origin-left group-hover:origin-right 
+                                                    transition-transform duration-300 ease-in-out"
+                                        ></span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="h-fit w-fit overflow-hidden">
+                                    <h2 id="navbarh2" className='text-[#9d9d9d] translate-y-0'>(Phone)</h2>
+                                </div>
+                                <div className="h-fit w-fit overflow-hidden">
+                                    <h3 id="navbarh3"  className='relative group translate-y-0 cursor-pointer w-fit'>
+                                        +491234 56789
+                                        <span
+                                            className="absolute bottom-0 left-0 w-full h-0.5 bg-black 
+                                                    transform scale-x-100 group-hover:scale-x-0 
+                                                    origin-left group-hover:origin-right 
+                                                    transition-transform duration-300 ease-in-out"
+                                        ></span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

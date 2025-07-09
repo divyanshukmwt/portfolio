@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
     const [isOpen, setIsOpen] = useState(false);
     const titlesRef = useRef([]);
     const underlineRef = useRef([]);
 
-    const menuItems = ['Home', 'About', 'Work', 'Contact'];
+    const menuItems = [
+        { label: 'Home', path: '/' },
+        { label: 'About', path: '/about' },
+        { label: 'Work', path: '/work' },
+        { label: 'Contact', path: '/contact' }
+    ];
 
     useEffect(() => {
         const tl = gsap.timeline();
@@ -77,7 +83,7 @@ const Nav = () => {
 
         titlesRef.current.forEach((el) => {
             gsap.to(el, {
-                color: 'black',
+                color: 'white',
                 opacity: 1,
                 duration: 0.3,
             });
@@ -89,17 +95,22 @@ const Nav = () => {
         setIsOpen(prev => !prev);
     }
 
+    function handleLinkClick() {
+        setIsOpen(false); // closes the nav
+    }
+
+
 
     return (
         <div className='w-full overflow-hidden'>
-            <nav className="w-full h-[10vh] flex justify-between fixed z-10 items-center transparent px-5">
+            <nav className="w-full h-[10vh] flex justify-between fixed top-0 left-0 z-10 items-center px-5">
                 <div className="flex items-center">
-                    <h1 className="select-none font-bold text-xl">D</h1>
+                    <h1 className="select-none text-white font-bold text-xl">D</h1>
                 </div>
 
                 <div
                     onClick={toggleMenu}
-                    className="w-[45px] h-[45px] bg-amber-500 flex items-center justify-center cursor-pointer rounded"
+                    className="w-[45px] h-[45px] text-white flex items-center justify-center cursor-pointer rounded"
                 >
                     <span className="text-2xl font-light">
                         {isOpen ? (
@@ -110,47 +121,52 @@ const Nav = () => {
                     </span>
                 </div>
             </nav>
-            <div className='navpage h-0 w-full flex md:flex-row overflow-hidden flex-col-reverse '>
+            <div className='navpage h-0 w-full flex md:flex-row fixed top-0 left-0 z-9 overflow-hidden bg-[#101010] flex-col-reverse '>
                 <div className="h-[90%] w-[50%] flex flex-col md:items-end justify-center gap-3">
-                    {menuItems.map((text, index) => (
+                    {menuItems.map((item, index) => (
                         <div
                             key={index}
                             className="relative overflow-hidden h-fit w-fit font-[font4]"
                             onMouseEnter={() => handleMouseEnter(index)}
                             onMouseLeave={() => handleMouseLeave(index)}
                         >
-                            <h1
-                                ref={(el) => (titlesRef.current[index] = el)}
-                                className="text-7xl navpageh1 translate-y-0 md:text-[6rem] font-semibold text-black cursor-pointer "
-                            >
-                                {text}
-                            </h1>
+                            <Link to={item.path} onClick={handleLinkClick}>
+                                <h1
+                                    ref={(el) => (titlesRef.current[index] = el)}
+                                    className="text-7xl navpageh1 translate-y-0 md:text-[6rem] font-semibold text-white cursor-pointer"
+                                >
+                                    {item.label}
+                                </h1>
+                            </Link>
+
                             <div
                                 ref={(el) => (underlineRef.current[index] = el)}
-                                className="absolute left-0 bottom-0 h-[4px] bg-black w-full scale-x-0"
+                                className="absolute left-0 bottom-0 h-[4px] bg-white w-full scale-x-0"
                                 style={{ transformOrigin: "left", transform: "scaleX(0)" }}
                             ></div>
                         </div>
                     ))}
+
+
                 </div>
                 <div className='h-full w-full md:w-[50%] flex items-center justify-center'>
                     <div className='flex h-[90%] w-[90%] flex-col justify-center pl-[2vw] gap-8'>
                         <div className='w-full bg flex gap-2'>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full border border-black flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-instagram-line relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full border border-white flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-white  scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-instagram-line relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
                             </div>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-black flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-github-fill relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-white flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-github-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
                             </div>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-black flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-twitter-x-fill relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-white flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-twitter-x-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
                             </div>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-black flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-black scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-linkedin-box-fill relative text-black group-hover:text-white duration-500 text-xl z-10"></i>
+                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-white flex items-center justify-center cursor-pointer">
+                                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                <i className="ri-linkedin-box-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
                             </div>
                         </div>
                         <div className='flex flex-col gap-3'>
@@ -159,10 +175,10 @@ const Nav = () => {
                                     <h2 id="navbarh2" className='text-[#9d9d9d] translate-y-0'>(inquires)</h2>
                                 </div>
                                 <div className="h-fit w-fit overflow-hidden">
-                                    <h3 id="navbarh3" className='relative group translate-y-0  cursor-pointer w-fit'>
-                                        john@jt-studio.com
+                                    <h3 id="navbarh3" className='relative group translate-y-0 text-white cursor-pointer w-fit'>
+                                        offcialdivyanshu18@gmail.com
                                         <span
-                                            className="absolute bottom-0 left-0 w-full h-0.5 bg-black 
+                                            className="absolute bottom-0 left-0 w-full h-0.5 bg-white
                                                     transform scale-x-100 group-hover:scale-x-0 
                                                     origin-left group-hover:origin-right 
                                                     transition-transform duration-300 ease-in-out"
@@ -175,10 +191,10 @@ const Nav = () => {
                                     <h2 id="navbarh2" className='text-[#9d9d9d] translate-y-0'>(Phone)</h2>
                                 </div>
                                 <div className="h-fit w-fit overflow-hidden">
-                                    <h3 id="navbarh3"  className='relative group translate-y-0 cursor-pointer w-fit'>
-                                        +491234 56789
+                                    <h3 id="navbarh3" className='relative group translate-y-0 text-white cursor-pointer w-fit'>
+                                        +91 6376420136
                                         <span
-                                            className="absolute bottom-0 left-0 w-full h-0.5 bg-black 
+                                            className="absolute bottom-0 left-0 w-full h-0.5 bg-white 
                                                     transform scale-x-100 group-hover:scale-x-0 
                                                     origin-left group-hover:origin-right 
                                                     transition-transform duration-300 ease-in-out"

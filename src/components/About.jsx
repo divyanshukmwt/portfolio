@@ -1,6 +1,7 @@
 import React from 'react';
 
 const About = () => {
+
   return (
     <div className="w-full flex bg-[#101010] text-white">
 

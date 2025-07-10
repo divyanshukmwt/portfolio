@@ -210,13 +210,11 @@ const Work = () => {
       ref={containerRef}
       className="relative bg-[#101010] flex flex-col items-center justify-center text-white h-screen w-full px-4 text-center overflow-hidden"
     >
-      {/* 👇 Canvas for waves */}
       <canvas
         ref={canvasRef}
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
       />
 
-      {/* 👇 Content */}
       <div className="relative z-8">
         <h1 className="fade-in text-[2.5rem] md:text-[3rem] max-w-3xl font-bold leading-tight tracking-wide glow-text">
           Still cooking the code — <br />

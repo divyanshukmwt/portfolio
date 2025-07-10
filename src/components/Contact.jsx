@@ -64,8 +64,7 @@ const Contact = () => {
     <div
       ref={sectionRef}
       id="contact"
-      className="bg-[#101010] text-white min-h-screen w-full px-4 py-20 flex items-center justify-center"
-    >
+      className="bg-[#101010] text-white min-h-screen w-full px-4 py-20 flex items-center justify-center overflow-auto scroll-hidden" >
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-12 md:gap-20">
         {/* Left Side */}
         <div className="flex flex-col gap-4 w-full md:w-1/2 contact-item">

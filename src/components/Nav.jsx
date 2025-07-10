@@ -96,7 +96,7 @@ const Nav = () => {
     }
 
     function handleLinkClick() {
-        setIsOpen(false); // closes the nav
+        setIsOpen(false);
     }
 
 
@@ -152,22 +152,33 @@ const Nav = () => {
                 <div className='h-full w-full md:w-[50%] flex items-center justify-center'>
                     <div className='flex h-[90%] w-[90%] flex-col justify-center pl-[2vw] gap-8'>
                         <div className='w-full bg flex gap-2'>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full border border-white flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-white  scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-instagram-line relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
-                            </div>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-white flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-github-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
-                            </div>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-white flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-twitter-x-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
-                            </div>
-                            <div className=" navbaricons group relative w-10 h-10 rounded-full  border border-white flex items-center justify-center cursor-pointer">
-                                <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
-                                <i className="ri-linkedin-box-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
-                            </div>
+                            <a href="https://www.instagram.com/divyanshu_kmwt" target="_blank" rel="noopener noreferrer">
+                                <div className="navbaricons group relative w-10 h-10 rounded-full border border-white flex items-center justify-center cursor-pointer">
+                                    <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                    <i className="ri-instagram-line relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
+                                </div>
+                            </a>
+
+                            <a href="https://github.com/divyanshukmwt" target="_blank" rel="noopener noreferrer">
+                                <div className="navbaricons group relative w-10 h-10 rounded-full border border-white flex items-center justify-center cursor-pointer">
+                                    <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                    <i className="ri-github-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
+                                </div>
+                            </a>
+
+                            <a href="https://x.com/divyanshu_kmwt_" target="_blank" rel="noopener noreferrer">
+                                <div className="navbaricons group relative w-10 h-10 rounded-full border border-white flex items-center justify-center cursor-pointer">
+                                    <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                    <i className="ri-twitter-x-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
+                                </div>
+                            </a>
+
+                            <a href="https://www.linkedin.com/in/divyanshu-kmwt/" target="_blank" rel="noopener noreferrer">
+                                <div className="navbaricons group relative w-10 h-10 rounded-full border border-white flex items-center justify-center cursor-pointer">
+                                    <span className="absolute inset-0 bg-white scale-0 group-hover:scale-120 transition-transform duration-500 origin-center rounded-full"></span>
+                                    <i className="ri-linkedin-box-fill relative text-white group-hover:text-black duration-500 text-xl z-10"></i>
+                                </div>
+                            </a>
                         </div>
                         <div className='flex flex-col gap-3'>
                             <div>

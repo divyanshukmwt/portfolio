@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 
 const Contact = () => {
   const sectionRef = useRef(null)
+  const contentRef = useRef(null)
   const emojiRef = useRef(null)
 
   const [formData, setFormData] = useState({
@@ -27,8 +28,13 @@ const Contact = () => {
   }
 
   useEffect(() => {
-    const items = sectionRef.current.querySelectorAll('.contact-item')
+    gsap.fromTo(
+      contentRef.current,
+      { opacity: 0, y: 40, filter: 'blur(10px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out' }
+    )
 
+    const items = sectionRef.current.querySelectorAll('.contact-item')
     gsap.from(items, {
       opacity: 0,
       y: 40,
@@ -37,6 +43,7 @@ const Contact = () => {
       ease: 'power2.inOut',
     })
   }, [])
+
   const socialLinks = [
     {
       icon: <i className="ri-github-fill mr-2"></i>,
@@ -64,19 +71,23 @@ const Contact = () => {
     <div
       ref={sectionRef}
       id="contact"
-      className="bg-[#101010] text-white min-h-screen w-full px-4 py-20 flex items-center justify-center overflow-auto scroll-hidden" >
-      <div className="w-full max-w-6xl flex flex-col md:flex-row gap-12 md:gap-20">
+      className="bg-[#101010] text-white min-h-screen w-full px-4 py-20 flex items-center justify-center overflow-hidden scroll-hidden"
+    >
+      <div
+        ref={contentRef}
+        className="w-full max-w-6xl flex flex-col md:flex-row gap-12 md:gap-20 opacity-0"
+      >
         {/* Left Side */}
         <div className="flex flex-col gap-4 w-full md:w-1/2 contact-item">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 glow-text">
-            Let’s Connect <span ref={emojiRef}><i class="ri-links-line"></i></span>
+            Let’s Connect <span ref={emojiRef}><i className="ri-links-line"></i></span>
           </h2>
           <p className="text-gray-400 mb-6">
             Available for freelance, collaborations, or just tech talk!
           </p>
 
-          <p className="text-white font-medium"><i class="ri-mail-fill"></i> officialdivyanshu18@gmail.com</p>
-          <p className="text-white font-medium"><i class="ri-phone-fill"></i> +91 63764 20136</p>
+          <p className="text-white font-medium"><i className="ri-mail-fill"></i> officialdivyanshu18@gmail.com</p>
+          <p className="text-white font-medium"><i className="ri-phone-fill"></i> +91 63764 20136</p>
 
           {socialLinks.map((item, i) => (
             <a
@@ -96,6 +107,7 @@ const Contact = () => {
           ))}
         </div>
 
+        {/* Right Side (Form) */}
         <form className="flex flex-col gap-4 w-full md:w-1/2 contact-item">
           <input
             type="text"
@@ -126,9 +138,8 @@ const Contact = () => {
             onClick={handleSubmit}
             className="relative inline-block px-6 py-3 font-medium border-2 border-zinc-300 text-zinc-100 bg-[#101010] rounded-md group overflow-hidden hover:text-black duration-300"
           >
-            <span className="relative z-10">Send Message <i class="ri-send-plane-fill"></i></span>
+            <span className="relative z-10">Send Message <i className="ri-send-plane-fill"></i></span>
             <span className="absolute inset-0 bg-white scale-y-0 origin-bottom transition-transform duration-300 ease-in-out group-hover:scale-y-100 z-0" />
-
           </button>
         </form>
       </div>

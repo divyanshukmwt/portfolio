@@ -103,7 +103,7 @@ const Nav = () => {
 
     return (
         <div className='w-full overflow-hidden'>
-            <nav className="w-full h-[10vh] flex justify-between fixed top-0 left-0 z-10 items-center px-5">
+            <nav className="w-full h-[10vh] flex justify-between fixed top-0 left-0 z-[9999] items-center px-5">
                 <div className="flex items-center">
                     <h1 className="select-none text-white font-bold text-xl">D</h1>
                 </div>

@@ -36,7 +36,7 @@ useEffect(() => {
       <Nav />
 
       {/* ✅ Suspense fallback shown while lazy components load */}
-      <Suspense fallback={<div className="text-white p-10">Loading...</div>}>
+      <Suspense fallback={<div className="text-white w-full h-full flex items-center justify-center p-10">Loading...</div>}>
         <Routes>
           <Route path="/" element={<Page />} />
           <Route path="/about" element={<About />} />

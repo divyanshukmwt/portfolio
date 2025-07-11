@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
+// Perlin Noise setup
 const Grad = function (x, y, z) {
   this.x = x; this.y = y; this.z = z;
 };
@@ -15,7 +16,7 @@ class Noise {
       new Grad(1, 0, 1), new Grad(-1, 0, 1), new Grad(1, 0, -1), new Grad(-1, 0, -1),
       new Grad(0, 1, 1), new Grad(0, -1, 1), new Grad(0, 1, -1), new Grad(0, -1, -1)
     ];
-    this.p = [...Array(256).keys()].map(i => i); // simplified permutation
+    this.p = [...Array(256).keys()].map(i => i);
     this.perm = new Array(512);
     this.gradP = new Array(512);
     this.seed(seed);
@@ -53,6 +54,7 @@ const Work = () => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
+  const contentRef = useRef(null);
   const noise = useRef(new Noise(Math.random()));
   const lines = useRef([]);
   const mouse = useRef({ x: -10, y: 0, sx: 0, sy: 0, v: 0, vs: 0, lx: 0, ly: 0, a: 0, set: false });
@@ -72,6 +74,15 @@ const Work = () => {
   };
 
   useEffect(() => {
+    // GSAP fade-in for content
+    gsap.fromTo(
+      contentRef.current,
+      { opacity: 0, y: 40, filter: 'blur(10px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out' }
+    );
+  }, []);
+
+  useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
     ctxRef.current = canvas.getContext('2d');
@@ -79,7 +90,6 @@ const Work = () => {
     function resize() {
       canvas.width = container.offsetWidth;
       canvas.height = container.offsetHeight;
-
       const width = canvas.width;
       const height = canvas.height;
       lines.current = [];
@@ -196,27 +206,17 @@ const Work = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const elements = containerRef.current.querySelectorAll('.fade-in');
-    gsap.fromTo(
-      elements,
-      { opacity: 0, y: 40, filter: 'blur(10px)' },
-      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power4.out', stagger: 0.2 }
-    );
-  }, []);
-
   return (
     <div
       ref={containerRef}
-      className="relative bg-[#101010] flex flex-col items-center justify-center text-white h-screen w-full px-4 text-center overflow-hidden"
+      className="relative select-none bg-[#101010] flex flex-col items-center justify-center text-white h-screen w-full px-4 text-center overflow-hidden"
     >
       <canvas
         ref={canvasRef}
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
       />
-
-      <div className="relative z-8">
-        <h1 className="fade-in text-[2.5rem] md:text-[3rem] max-w-3xl font-bold leading-tight tracking-wide glow-text">
+      <div ref={contentRef} className="relative z-5 opacity-0">
+        <h1 className="text-[2.5rem] md:text-[3rem] max-w-3xl font-bold leading-tight tracking-wide glow-text">
           Still cooking the code — <br />
           real projects coming soon!
         </h1>
@@ -225,7 +225,7 @@ const Work = () => {
           href="https://github.com/divyanshukmwt"
           target="_blank"
           rel="noopener noreferrer"
-          className="fade-in mt-6 text-[#fdfffe] hover:underline text-lg tracking-wide block"
+          className="mt-6 text-[#fdfffe] hover:underline text-lg tracking-wide block"
         >
           Check out my progress on GitHub
         </a>

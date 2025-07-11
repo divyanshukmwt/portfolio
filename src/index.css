@@ -5,7 +5,7 @@ body{
 }
 
 /* Hide scrollbar but keep scroll */
-.scroll-hidden::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
 }
 

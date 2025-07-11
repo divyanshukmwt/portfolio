@@ -5,55 +5,59 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-useEffect(() => {
-  gsap.utils.toArray(".section").forEach((section) => {
-    const children = section.querySelectorAll(".fade-child");
-    gsap.from(children, {
+  useEffect(() => {
+    // Fade in WHO AM I? heading on load
+    gsap.from(".whoami-fade", {
       opacity: 0,
-      y: 40,
-      duration: 0.5,
+      duration: 2,
       ease: "power2.out",
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: section,
-        start: "top 75%",
-        toggleActions: "play none none reverse",
-      },
-    });
-  });
-
-  const cursor = document.getElementById("custom-cursor");
-  let timeout;
-
-  const moveCursor = (e) => {
-    if (!cursor) return;
-
-    gsap.to(cursor, {
-      x: e.clientX,
-      y: e.clientY,
-      scale: 3,
-      duration: 0.2,
-      ease: "power3.out",
     });
 
-    clearTimeout(timeout);
+    // Scroll animations for the rest
+    gsap.utils.toArray(".section").forEach((section) => {
+      const children = section.querySelectorAll(".fade-child");
+      gsap.from(children, {
+        opacity: 0,
+        y: 40,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
 
-    timeout = setTimeout(() => {
+    const cursor = document.getElementById("custom-cursor");
+    let timeout;
+
+    const moveCursor = (e) => {
+      if (!cursor) return;
       gsap.to(cursor, {
-        scale: 1,
-        duration: 0.4,
+        x: e.clientX,
+        y: e.clientY,
+        scale: 3,
+        duration: 0.2,
         ease: "power3.out",
       });
-    }, 400);
-  };
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        gsap.to(cursor, {
+          scale: 1,
+          duration: 0.4,
+          ease: "power3.out",
+        });
+      }, 400);
+    };
 
-  window.addEventListener("mousemove", moveCursor);
-
-  return () => {
-    window.removeEventListener("mousemove", moveCursor);
-    clearTimeout(timeout);
-  };
-}, []);
+    window.addEventListener("mousemove", moveCursor);
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      clearTimeout(timeout);
+    };
+  }, []);
 
 
   const skills = [
@@ -70,9 +74,10 @@ useEffect(() => {
 
   return (
     <div className="w-full bg-[#101010] text-white relative overflow-hidden select-none">
-      
+
       <div className="w-full h-screen flex flex-col items-center justify-center px-4 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 ">WHO AM I ?</h1>
+        <h1 className="whoami-fade text-5xl md:text-7xl font-bold mb-6">WHO AM I ?</h1>
+
       </div>
 
       <div className="section w-full flex flex-col md:flex-row px-6 md:px-20 py-20 gap-12 items-center">

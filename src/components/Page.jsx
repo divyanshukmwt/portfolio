@@ -31,7 +31,7 @@ const Page = () => {
       <Suspense fallback={<div className="text-gray-500 text-xl w-full h-full flex items-center justify-center p-4">Loading 3D Scene...</div>}>
         <div
           ref={splineWrapperRef}
-          className="w-full h-full opacity-0 transition-opacity duration-1000"
+          className="w-full h-full md:h-full opacity-0 transition-opacity duration-1000"
         >
           <Spline
             scene="https://prod.spline.design/lrlv9L-GgETbzd1i/scene.splinecode"

@@ -17,7 +17,6 @@ const Page = () => {
   const progressBarRef = useRef(null);
   const loadingIntervalRef = useRef(null);
 
-  // Fake loading progress
   useEffect(() => {
     let current = 0;
     loadingIntervalRef.current = setInterval(() => {
@@ -37,7 +36,6 @@ const Page = () => {
     }, 40);
   }, []);
 
-  // Spline load triggers scene opacity
   const handleSplineLoad = () => {
     setSplineLoaded(true);
     gsap.to(splineWrapperRef.current, {
@@ -47,7 +45,6 @@ const Page = () => {
     });
   };
 
-  // ✅ The real fix — fade out when both conditions are met
   useEffect(() => {
     if (progress === 100 && splineLoaded) {
       gsap.to(loaderRef.current, {
@@ -72,14 +69,12 @@ const Page = () => {
   return (
     <div className="w-full h-screen bg-[#101010] relative overflow-hidden">
 
-      {/* 🔵 Bottom Loader */}
       {!loadingDone && (
         <div
           ref={loaderRef}
           className="absolute inset-0 z-[9999] bg-[#101010] flex items-end justify-center pointer-events-none"
         >
           <div className="w-full flex items-center justify-between p-4 md:px-10 pb-6 gap-4">
-            {/* Progress Bar */}
             <div className="w-full h-[2px] bg-zinc-800 relative overflow-hidden rounded-full">
               <div
                 ref={progressBarRef}
@@ -87,15 +82,13 @@ const Page = () => {
                 style={{ width: '0%' }}
               />
             </div>
-            {/* Percentage Number */}
-            <div className="text-white text-sm md:text-base font-medium min-w-[50px] text-right">
+            <div className="text-white font-[font7] text-sm md:text-base font-medium min-w-[50px] text-right">
               {progress}%
             </div>
           </div>
         </div>
       )}
 
-      {/* 🟣 3D Spline Scene */}
       <Suspense fallback={<></>}>
         <div
           ref={splineWrapperRef}
@@ -108,7 +101,6 @@ const Page = () => {
         </div>
       </Suspense>
 
-      {/* 🟠 Button */}
       <div className="absolute bottom-5 right-5 z-10 opacity-0" ref={buttonRef}>
         <button
           onClick={() => navigate('/about')}

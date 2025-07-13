@@ -8,7 +8,7 @@ const Page = lazy(() => import('./components/Page'));
 const About = lazy(() => import('./components/About'));
 const Work = lazy(() => import('./components/Work'));
 const Contact = lazy(() => import('./components/Contact'));
-const Nav = lazy(() => import('./components/nav'))
+const Nav = lazy(() => import('./components/Nav'));
 
 const App = () => {
 useEffect(() => {

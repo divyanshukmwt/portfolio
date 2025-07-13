@@ -101,7 +101,7 @@ const Page = () => {
         </div>
       </Suspense>
 
-      <div className="absolute bottom-5 right-5 z-10 opacity-0" ref={buttonRef}>
+      <div className="absolute bottom-5 right-5 z-5 opacity-0" ref={buttonRef}>
         <button
           onClick={() => navigate('/about')}
           className="bg-[#101010] text-zinc-300 font-bold text-sm px-8 border-2 border-zinc-700 rounded-xl py-2 shadow-md transition hover:bg-white hover:text-black hover:scale-105 duration-500"

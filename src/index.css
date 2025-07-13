@@ -16,32 +16,26 @@ body::-webkit-scrollbar {
 
 @font-face {
     font-family: font1;
-    src: url('../public/Fonts/inter-tight-regular.woff2');
+    src: url('./Fonts/inter-tight-regular.woff2');
 }
 
 @font-face {
     font-family: font2;
-    src: url('../public/Fonts/inter-tight-700.woff2');
+    src: url('./Fonts/inter-tight-700.woff2');
 }
 @font-face {
     font-family: font3;
-    src: url('../public/Fonts/inter-regular.woff2');
+    src: url('./Fonts/inter-regular.woff2');
 }
 @font-face {
     font-family: font4;
-    src: url('../public/Fonts/inter-700.woff2');
+    src: url('./Fonts/inter-700.woff2');
 }
 @font-face {
     font-family: font5;
-    src: url('../public/Fonts/inter-500.woff2');
+    src: url('./Fonts/inter-500.woff2');
 }
-
-@font-face {
-    font-family: font6;
-    src: url("/public/Fonts/MeraPro-V4Oex.otf");
-}
-
 @font-face {
     font-family: font7;
-    src: url("/public/Fonts/fonnts.com-sabrosa-medium.otf");
+    src: url("./Fonts/fonnts.com-sabrosa-medium.otf");
 }
